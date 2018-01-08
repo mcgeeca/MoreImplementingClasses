@@ -228,6 +228,9 @@ class Line(object):
         self.start = start.clone()
         self.end = end.clone()
         self.number_of_clones = 0
+        self.original_start = self.start.clone()
+        self.original_end = self.end.clone()
+
 
     def __repr__(self):
         """
@@ -693,11 +696,18 @@ class Line(object):
         y1 = self.start.y
         x2 = self.end.x
         x1 = self.start.x
-        slope_original_line = (y2-y1)/(x2-x1)
         o2 = line2.end.y
         o1 = line2.start.y
         l2 = line2.end.x
         l1 = line2.start.x
+        if x2 == x1:
+            if l2 == l1:
+                return True
+            else:
+                return False
+        if l2 == l1:
+            return False
+        slope_original_line = (y2-y1)/(x2-x1)
         slope_other_line = (o2-o1)/(l2-l1)
         if slope_other_line == slope_original_line:
             return True
@@ -735,7 +745,7 @@ class Line(object):
             print(line2)  # Should print: Line[(0, 1), (10, 20)]
         """
         # --------------------------------------------------------------
-        # TODO: 13.
+        # DONE: 13.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -743,7 +753,8 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
-
+        self.start = self.original_start
+        self.end = self.original_end
 
 ########################################################################
 # The TEST functions for the  Line  class begin here.
